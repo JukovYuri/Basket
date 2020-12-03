@@ -9,6 +9,11 @@ public class Subject : MonoBehaviour
 	[Range(0.5f, 1.5f)] public float multiply;
 	public bool isEnemy;
 	GameManager gameManager;
+	AudioManager audioManager;
+	[Header("Звуки")]
+	public AudioClip sndOk;
+	public AudioClip sndNot;
+
 
 	private void Start()
 	{
@@ -23,6 +28,13 @@ public class Subject : MonoBehaviour
 			gameManager.AddScore(score);
 			gameManager.AddLife(life);
 			gameManager.AddTimeScale(multiply);
+			audioManager.PlaySound(sndOk);
+
+			if (isEnemy)
+			{
+				audioManager.PlaySound(sndNot);
+				return;
+			}
 
 		}
 

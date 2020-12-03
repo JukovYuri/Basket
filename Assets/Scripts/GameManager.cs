@@ -16,8 +16,12 @@ public class GameManager : MonoBehaviour
 	public bool isPause;
 	public GameObject panelPause;
 	public GameObject PanelEnd;
+	public Text velocity;
 
-	void Start()
+
+
+
+	void Start() 
 	{
 		textScore.text = score.ToString();
 		Time.timeScale = 1;
@@ -34,6 +38,7 @@ public class GameManager : MonoBehaviour
 	public void Exit()
 	{
 		Application.Quit();
+		//проверить bestscore
 	}
 
 
@@ -43,6 +48,9 @@ public class GameManager : MonoBehaviour
 		{
 			SetPauseSwitch();
 		}
+
+		velocity.text = Time.timeScale.ToString(); 
+
 	}
 
 	public void AddScore(int score)
@@ -91,6 +99,7 @@ public class GameManager : MonoBehaviour
 		{
 			SetPauseSwitch();
 			PanelEnd.SetActive(true);
+			SaveBestScore();
 		}
 	}
 
@@ -99,6 +108,7 @@ public class GameManager : MonoBehaviour
 		if (score <= 0)
 		{
 			SetPauseSwitch();
+			SaveBestScore();
 			PanelEnd.SetActive(true);
 		}
 	}
@@ -130,7 +140,7 @@ public class GameManager : MonoBehaviour
 
 	void AddTimeScaleFromScore() // в зависимости от score
 	{
-		Time.timeScale = 1 + (score/75f);
+		Time.timeScale = 1 + (score/100f);
 	}
 
 
@@ -156,6 +166,10 @@ public class GameManager : MonoBehaviour
 			return;
 		}
 
+	}
+	void SaveBestScore()
+	{
+		PlayerPrefs.SetInt("bestScore", score);
 	}
 
 }
